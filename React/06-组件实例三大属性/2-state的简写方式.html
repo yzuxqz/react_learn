@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="test"></div>
+<script type="text/javascript" src="../js/react.development.js"></script>
+<script type="text/javascript" src="../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/babel.min.js"></script>
+<script type="text/babel">
+  class Weather extends React.Component {
+    constructor(props) {
+      super(props)
+      // this.state={isHot:false}
+      // this.changeWeather = this.changeWeather.bind(this)
+    }
+
+    // 此时state在每一个实例自身
+    state = {isHot: false}
+
+    render() {
+      const {isHot} = this.state
+      return <h1 onClick={this.changeWeather}>今天天气很{isHot ? '炎热' : '凉爽'}</h1>
+    }
+
+    // 此时方法和state一样，成了实例自身的一个属性，用箭头函数，this指向Weather实例
+    changeWeather = () => {
+      const {isHot} = this.state
+      this.setState({isHot: !isHot})
+    }
+  }
+
+  ReactDOM.render(<Weather/>, document.getElementById('test'))
+
+</script>
+</body>
+</html>

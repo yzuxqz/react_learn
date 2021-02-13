@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="test"></div>
+<div id="test2"></div>
+<script type="text/javascript" src="../js/react.development.js"></script>
+<script type="text/javascript" src="../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/babel.min.js"></script>
+<script type="text/javascript" src="../js/prop-types.js"></script>
+<script type="text/babel">
+  class Person extends React.Component{
+    render(){
+      const {name,age,sex} = this.props
+      // this.props.name = 'xqz' //报错，因为props是只读的
+      return (
+        <ul>
+          <li>姓名:{name}</li>
+          <li>性别:{age+1}</li>
+          <li>年龄:{sex}</li>
+        </ul>
+      )
+    }
+  }
+  // 对标签属性进行类型，必要性的限制
+  Person.propTypes={
+    name:PropTypes.string.isRequired, //限制name必传，且为字符串
+    sex:PropTypes.string,
+    age:PropTypes.number,
+    speak:PropTypes.func //限制speak为function
+  }
+  // 指定默认标签属性
+  Person.defaultProps={
+    sex:'不男不女',
+    age:18
+  }
+  const p = {name:'老刘',age:18}
+  ReactDOM.render(<Person name="xqz" age={19} sex="man" speak={speak}/>,document.getElementById('test2'))
+  //这里的...p并不是复制对象，原生中不能用展开运算符操作对象，但是这里有react.development.js和babel所以可以，但是不能随意使用，仅仅适用于标签属性的传递，这里的{}只是代表里面要写js表达式
+  ReactDOM.render(<Person {...p}/>,document.getElementById('test'))
+  function speak() {
+    console.log(1)
+  }
+</script>
+</body>
+</html>

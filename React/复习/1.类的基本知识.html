@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  /*
+  * 1.类中的构造器不是必须的，要对实例进行一些初始化的操作，要添加特有属性时采写
+  * 2.如果a类继承b类，且a类中写了构造器，那么a类构造器中的super时必须要调用的
+  * */
+  class Person{
+    constructor(name,age) {
+      this.name = name
+      this.age = age
+    }
+    //一般方法,在person的prototype上
+    speak(){
+      //通过Person实例调用speak时，speak中的this就是person实例
+      console.log(`我叫${this.name},我的年龄是${this.age}`)
+    }
+  }
+  // 创建一个Person的实例对象
+  const p1 = new Person('tom',18)
+  const p2 = new Person('jerry',19)
+  console.log(p1)
+  console.log(p2)
+  p1.speak()
+  p1.speak.call({name:'xqz',age:12})
+  p2.speak()
+
+  class Student extends Person{
+    constructor(name,age,grade) {
+      super(name,age)
+      this.grade = grade
+    }
+    //重写从父类继承过来的方法
+    speak() {
+      super.speak()
+      console.log(`${this.age}年级`)
+    }
+    study(){
+      console.log('我很努力的学习')
+    }
+  }
+  const s1 = new Student('小张',15,'高一')
+  console.log(s1)
+  s1.speak()
+
+  class Car {
+    constructor(name,price) {
+      this.name = name
+      this.price = price
+    }
+    // 类中可以直接写赋值语句，是给Car的实例对象添加一个属性（固定值），名为a，值伪1
+    a=1
+  }
+
+  let c1 = new Car('宝马',111)
+  console.log(c1)
+</script>
+</body>
+</html>

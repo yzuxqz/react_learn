@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+  class Student{
+    constructor(name,age) {
+      this.name = name
+      this.age = age
+    }
+    say(){
+      // 默认use strict
+      console.log(this)
+    }
+  }
+
+  let s1 = new Student('xqz',12)
+  s1.say()
+  let say = s1.say
+  say()
+</script>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <script type="text/javascript" src="../js/17.0.1/react.development.js"></script>
+    <script type="text/javascript" src="../js/17.0.1/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/17.0.1/babel.min.js"></script>
+    <script type="text/javascript" src="../js/17.0.1/prop-types.js"></script>
+    <script type="text/babel">
+        class Son extends React.Component{
+            state={
+                    carName:'奥迪'
+                }
+                changeCar=()=>{
+                    this.setState({carName:'宝马'})
+                }
+            render(){
+                const {carName} = this.state
+                return(
+                    <div>
+                        <h1>Son</h1>
+                        <button onClick={this.changeCar}>换车</button>
+                        <Father carName={carName}/>
+                    </div>
+                )
+            }
+        }
+
+        class Father extends React.Component{
+            state={
+                name:'xj'
+            }
+            static getDerivedStateFromProps(nextProps,preState){
+                console.log('getDerivedStateFromProps',nextProps,preState);
+                return nextProps
+            }
+            //接收newProps时调用，第一次发送来的属性不算
+            // componentWillReceiveProps(){
+            //     console.log('componentWillReceiveProps');
+            // }
+            shouldComponentUpdate(){
+                console.log('shouldComponentUpdate');
+                return true
+            }
+            // UNSAFE_componentWillUpdate(){
+            //     console.log('componentWillUpdate');
+            // }
+            /* 在最近一次渲染输出（提交到DOM节点）之前调用。
+             它使得组件能在发生更改之前从DOM中捕获一些信息，比如列表的高度等。
+            此生命周期的任何返回值将作为第三个参数传递给componentDidUpdate()*/
+            getSnapshotBeforeUpdate(preProps,preState){
+                console.log('getSnapshotBeforeUpdate',preProps,preState);
+                return 'xqz'
+            }
+            render(){
+                console.log('render');
+                return(
+                    <div>
+                        <h1>Father:{this.props.carName}</h1>
+                    </div>
+                )
+            }
+            componentDidUpdate(preProps,preState,snapshotValue){
+                console.log('componentDidUpdate',preProps,preState,snapshotValue);
+            }
+        }
+
+        ReactDOM.render(<Son/>,document.getElementById('test'))
+    </script>
+</body>
+</html>

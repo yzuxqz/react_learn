@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/babel">
+        class Son extends React.Component{
+            state={
+                    carName:'奥迪'
+                }
+                changeCar=()=>{
+                    this.setState({carName:'宝马'})
+                }
+            render(){
+                const {carName} = this.state
+                return(
+                    <div>
+                        <h1>Son</h1>
+                        <button onClick={this.changeCar}>换车</button>
+                        <Father carName={carName}/>
+                    </div>
+                )
+            }
+        }
+
+        class Father extends React.Component{
+            //接收newProps时调用，第一次发送来的属性不算
+            componentWillReceiveProps(){
+                console.log('componentWillReceiveProps');
+            }
+            shouldComponentUpdate(){
+                console.log('shouldComponentUpdate');
+                return true
+            }
+            componentWillUpdate(){
+                console.log('componentWillUpdate');
+            }
+            render(){
+                console.log('render');
+                return(
+                    <div>
+                        <h1>Father:{this.props.carName}</h1>
+                    </div>
+                )
+            }
+            componentDidUpdate(){
+                console.log('componentDidUpdate');
+            }
+        }
+
+        ReactDOM.render(<Son/>,document.getElementById('test'))
+    </script>
+</body>
+</html>

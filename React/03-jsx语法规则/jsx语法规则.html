@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<style>
+  .tltle{
+    background-color:orange;
+  }
+</style>
+<body>
+<div id="test"></div>
+<script type="text/javascript" src="../js/react.development.js"></script>
+<script type="text/javascript" src="../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/babel.min.js"></script>
+<script type="text/babel">
+  const myId = 'aTgUiGu'
+  const myData = 'hello,react'
+  //1. 创建虚拟dom
+  const VDOM = (
+    <h1 className="tltle" id={myId}>{myData}</h1>
+  )
+  //2. 渲染虚拟dom到页面
+  ReactDOM.render(VDOM,document.getElementById('test'))
+</script>
+</body>
+
+</html>

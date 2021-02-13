@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <script type="text/javascript" src="../js/17.0.1/react.development.js"></script>
+    <script type="text/javascript" src="../js/17.0.1/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/17.0.1/babel.min.js"></script>
+    <script type="text/javascript" src="../js/17.0.1/prop-types.js"></script>
+    <script type="text/babel">
+        class Tab extends React.Component{
+            state={
+                li:['1','2','3','4'],
+                div:['c1','c2','c3','c4'],
+                currentIndex:0,
+                color:'red'
+            }
+            change=(e)=>{
+                const {currentIndex} = this.state
+                this.setState({currentIndex:e.target.getAttribute('data-index')})   
+            }
+            render(){
+                const {li,color,currentIndex,div} = this.state
+                return(
+                    <div>
+                        <ul onClick={this.change}>
+                            {li.map((v,i)=><li data-index={i} key={i} style={{color:currentIndex==i?'red':'green'}}>{v}</li>)}
+                        </ul>
+                        {div.map((v,i)=><div key={i} style={{display:currentIndex==i?'block':'none'}}>{v}</div>)}
+                    </div>
+                )
+
+            }
+        }
+
+        ReactDOM.render(<Tab/>,document.getElementById('test'))
+    </script>
+</body>
+
+</html>
